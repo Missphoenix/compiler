@@ -8,7 +8,12 @@ class CFGProcessor:
 		self.__terminallist = []
 		self.__memory = _Memory()
 		self.__SimpleSpecific()
-		
+		self.__buildTerminalList()
+		print(self.getTerminalList())
+
+	def getTerminalList(self):
+		terminallist = self.__terminallist
+		return terminallist
 
 	def __SimpleSpecific(self):
 		for tree in self.__treelist:
@@ -28,6 +33,24 @@ class CFGProcessor:
 				for simple in simplelist:
 					rule.AddSimple(simple)
 			tree.PrintTree()
+
+
+	def __buildTerminalList(self):
+		EndExist = False
+		for tree in self.__treelist:
+			for rule in tree.getRoot().getRules():
+				for simple in rule.getSimples():
+					simplestr = simple.getSimpleVal()
+					if simplestr != "λ":
+						if not simplestr[0].isupper():
+							if simplestr == "$":
+								EndExist = True
+							else:
+								if simplestr not in self.__terminallist:
+									self.__terminallist.append(simplestr)
+		if EndExist == True:
+			self.__terminallist.append("$")
+
 
 	def __CheckTerminalAll(self , simplestr):
 		return self.__CheckNonTerminal(simplestr)
