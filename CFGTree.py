@@ -7,5 +7,9 @@ class CFGTree:
 	def SetRule(self, rule):
 		self.__root.AddRule(rule)
 
+	def getRoot(self):
+		root = self.__root
+		return root
+
 	def PrintTree(self):
 		self.__root.PrintRoot()

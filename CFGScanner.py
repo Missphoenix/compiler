@@ -10,6 +10,7 @@ class CFGScanner:
 		self.__ReadCFG(file_name)
 		self.__CutNonTerminal()
 		self.__BuildRuleTree()
+		self.__BuildTreeSimple()
 
 	def __ReadCFG(self, file_name):
 		cfg_file = open(file_name, 'r')
@@ -42,7 +43,13 @@ class CFGScanner:
 			else:
 				tree.SetRule(right_rule)
 		self.__rule_tree.append(tree)
-			
+
+	def __BuildTreeSimple(self):
+		for tree in self.__rule_tree:
+			for rule in tree.getRoot().getRules():
+				rule_list = rule.getRuleVal().split(" ")
+				for simple in rule_list:
+					rule.AddSimple(simple)
 
 	def __GetRightpart(self, rule):
 		rule = rule.replace("|", ">")
@@ -54,6 +61,10 @@ class CFGScanner:
 
 	def GetNonTerminal(self):
 		res = self.__nonterminal
+		return res
+
+	def GetRuleTree(self):
+		res = self.__rule_tree
 		return res
 
 	#debug part
@@ -70,10 +81,3 @@ class CFGScanner:
 	def PrintRuleTree(self):
 		for element in self.__rule_tree:
 			element.PrintTree()
-
-
-test = CFGScanner("CFG1")
-test.PrintCFG()
-test.PrintNonTerminal()
-test.PrintRuleTree()
-

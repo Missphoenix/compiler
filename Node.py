@@ -7,8 +7,12 @@ class rootNode:
 		rulenode = ruleNode(rule , len(self.__rules)+1)
 		self.__rules.append(rulenode)
 
+	def getRules(self):
+		rules = self.__rules
+		return rules
+
 	def PrintRoot(self):
-		print("Root: %s"% (self.__rootVal), end = " ")
+		print("Root: %s"% (self.__rootVal))
 		for element in self.__rules:
 			element.PrintRule()
 		print()
@@ -24,7 +28,7 @@ class ruleNode:
 		self.__follows = []
 
 	def AddSimple(self, simple):
-		simplenode = simpleNode(simple , len(simples)+1)
+		simplenode = simpleNode(simple , len(self.__simples)+1)
 		self.__simples.append(simplenode)
 
 	def AddFirst(self, first):
@@ -33,10 +37,31 @@ class ruleNode:
 	def AddFollow(self, follow):
 		self.__follows.append(follow)
 
+	def ResetSimples(self):
+		self.__simples.clear()
+
+	def getRuleVal(self):
+		res = self.__ruleVal
+		return res
+
+	def getSimples(self):
+		simples = self.__simples
+		return simples
+
 	def PrintRule(self):
-		print("index %d: %s"% (self.__ruleIndex, self.__ruleVal), end = " ")
+		print("  Rule index %d: %s"% (self.__ruleIndex, self.__ruleVal))
+		for node in self.__simples:
+			node.PrintSimple()
+		print()
 
 class simpleNode:
 	def __init__(self , simple , index):
 		self.__simpleVal = simple
 		self.__simpleIndex = index
+
+	def getSimpleVal(self):
+		res = self.__simpleVal
+		return res
+
+	def PrintSimple(self):
+		print("    Simple index %d: %s"% (self.__simpleIndex, self.__simpleVal), end =" ")
