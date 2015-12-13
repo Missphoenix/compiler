@@ -31,6 +31,7 @@ class ruleNode:
 		self.__Derives = None
 		self.__firsts = []
 		self.__follows = []
+		self.__ans = []
 
 	def AddSimple(self, simple):
 		simplenode = simpleNode(simple , len(self.__simples)+1)
@@ -54,6 +55,9 @@ class ruleNode:
 	def setFollows(self, follows):
 		self.__follows = follows
 
+	def setAns(self, list):
+		self.__ans = list
+
 	def getRuleVal(self):
 		res = self.__ruleVal
 		return res
@@ -70,12 +74,20 @@ class ruleNode:
 		firsts = self.__firsts
 		return firsts
 
-	def getFollows():
+	def getFollows(self):
 		follows = self.__follows
 		return follows
 
+	def getRuleNumber(self):
+		ruleNumber = self.__ruleNumber
+		return ruleNumber
+
+	def getAns(self):
+		ans = self.__ans
+		return ans
+
 	def PrintRule(self):
-		print(" Rule number %d: %s; derive λ: %s; first: %s; follow: %s"% (self.__ruleNumber, self.__ruleVal, self.__Derives, self.__firsts, self.__follows))
+		print(" Rule number %d: %s; derive λ: %s; first: %s; follow: %s; ans: %s;"% (self.__ruleNumber, self.__ruleVal, self.__Derives, self.__firsts, self.__follows, self.__ans))
 		for node in self.__simples:
 			node.PrintSimple()
 		print()
