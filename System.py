@@ -22,6 +22,8 @@ class System:
 			processor = CFGProcessor(treelist , nonterlist)
 			terlist = processor.getTerminalList()
 			predictor = CFGPredictor(treelist , nonterlist , terlist)
+			for tree in treelist:
+				tree.PrintTree()
 			# end
 			return choice , True
 		elif choice == '2':

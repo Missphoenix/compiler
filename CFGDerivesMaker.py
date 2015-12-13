@@ -7,7 +7,7 @@ class CFGDerivesMaker:
 		self.__NonTerminalList = NonTerminalList
 		self.__TerminalList = TerminalList
 		self.__FindRuleDerives()
-		self.__PrintDerives()
+		#self.__PrintDerives()
 
 		# debug part
 	def __PrintDerives(self):

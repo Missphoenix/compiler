@@ -60,7 +60,7 @@ class ruleNode:
 		return derives
 
 	def PrintRule(self):
-		print("  Rule index %d: %s"% (self.__ruleIndex, self.__ruleVal))
+		print(" Rule index %d: %s; derive λ: %s; first: %s; follow: %s"% (self.__ruleIndex, self.__ruleVal, self.__Derives, self.__firsts, self.__follows))
 		for node in self.__simples:
 			node.PrintSimple()
 		print()
@@ -75,4 +75,4 @@ class simpleNode:
 		return res
 
 	def PrintSimple(self):
-		print("    Simple index %d: %s"% (self.__simpleIndex, self.__simpleVal), end =" ")
+		print("  Simple index %d: %s"% (self.__simpleIndex, self.__simpleVal), end =" ")

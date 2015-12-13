@@ -9,7 +9,7 @@ class CFGProcessor:
 		self.__memory = _Memory()
 		self.__SimpleSpecific()
 		self.__buildTerminalList()
-		print(self.getTerminalList())
+		#print(self.getTerminalList())
 
 	def getTerminalList(self):
 		terminallist = self.__terminallist
@@ -32,7 +32,7 @@ class CFGProcessor:
 				rule.ResetSimples()
 				for simple in simplelist:
 					rule.AddSimple(simple)
-			tree.PrintTree()
+			#tree.PrintTree()
 
 
 	def __buildTerminalList(self):
