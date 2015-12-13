@@ -47,6 +47,12 @@ class ruleNode:
 	def setDerives(self , derives):
 		self.__Derives = derives
 
+	def setFirsts(self, firsts):
+		self.__firsts = firsts
+
+	def setFollows(self, follows):
+		self.__follows = follows
+
 	def getRuleVal(self):
 		res = self.__ruleVal
 		return res
@@ -58,6 +64,14 @@ class ruleNode:
 	def getDerives(self):
 		derives = self.__Derives
 		return derives
+
+	def getFirsts(self):
+		firsts = self.__firsts
+		return firsts
+
+	def getFollows():
+		follows = self.__follows
+		return follows
 
 	def PrintRule(self):
 		print(" Rule index %d: %s; derive λ: %s; first: %s; follow: %s"% (self.__ruleIndex, self.__ruleVal, self.__Derives, self.__firsts, self.__follows))
