@@ -11,6 +11,10 @@ class rootNode:
 		rules = self.__rules
 		return rules
 
+	def getRootVal(self):
+		res = self.__rootVal
+		return res
+
 	def PrintRoot(self):
 		print("Root: %s"% (self.__rootVal))
 		for element in self.__rules:
@@ -23,7 +27,7 @@ class ruleNode:
 		self.__ruleVal = rule
 		self.__ruleIndex = index
 		self.__simples = []
-		self.__Derives = False
+		self.__Derives = None
 		self.__firsts = []
 		self.__follows = []
 
@@ -40,6 +44,9 @@ class ruleNode:
 	def ResetSimples(self):
 		self.__simples.clear()
 
+	def setDerives(self , derives):
+		self.__Derives = derives
+
 	def getRuleVal(self):
 		res = self.__ruleVal
 		return res
@@ -47,6 +54,10 @@ class ruleNode:
 	def getSimples(self):
 		simples = self.__simples
 		return simples
+
+	def getDerives(self):
+		derives = self.__Derives
+		return derives
 
 	def PrintRule(self):
 		print("  Rule index %d: %s"% (self.__ruleIndex, self.__ruleVal))

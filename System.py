@@ -1,6 +1,7 @@
 from CFGTree import CFGTree
 from CFGProcessor import *
 from CFGScanner import *
+from CFGPredictor import *
 
 class System:
 
@@ -19,6 +20,8 @@ class System:
 			treelist = scanner.GetRuleTree()
 			nonterlist = scanner.GetNonTerminal()
 			processor = CFGProcessor(treelist , nonterlist)
+			terlist = processor.getTerminalList()
+			predictor = CFGPredictor(treelist , nonterlist , terlist)
 			# end
 			return choice , True
 		elif choice == '2':
