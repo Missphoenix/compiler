@@ -3,8 +3,8 @@ class rootNode:
 		self.__rootVal = root
 		self.__rules = []
 
-	def AddRule(self, rule):
-		rulenode = ruleNode(rule , len(self.__rules)+1)
+	def AddRule(self, rule, number):
+		rulenode = ruleNode(rule , len(self.__rules)+1, number)
 		self.__rules.append(rulenode)
 
 	def getRules(self):
@@ -23,9 +23,10 @@ class rootNode:
 
 
 class ruleNode:
-	def __init__(self , rule , index):
+	def __init__(self , rule , index, number):
 		self.__ruleVal = rule
 		self.__ruleIndex = index
+		self.__ruleNumber = int(number)
 		self.__simples = []
 		self.__Derives = None
 		self.__firsts = []
@@ -74,7 +75,7 @@ class ruleNode:
 		return follows
 
 	def PrintRule(self):
-		print(" Rule index %d: %s; derive λ: %s; first: %s; follow: %s"% (self.__ruleIndex, self.__ruleVal, self.__Derives, self.__firsts, self.__follows))
+		print(" Rule number %d: %s; derive λ: %s; first: %s; follow: %s"% (self.__ruleNumber, self.__ruleVal, self.__Derives, self.__firsts, self.__follows))
 		for node in self.__simples:
 			node.PrintSimple()
 		print()

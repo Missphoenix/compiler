@@ -39,9 +39,9 @@ class CFGScanner:
 					self.__rule_tree.append(tree)
 				root = content_split[1]
 				tree = CFGTree(root)
-				tree.SetRule(right_rule)
+				tree.SetRule(right_rule, content_split[0])
 			else:
-				tree.SetRule(right_rule)
+				tree.SetRule(right_rule, content_split[0])
 		self.__rule_tree.append(tree)
 
 	def __BuildTreeSimple(self):
