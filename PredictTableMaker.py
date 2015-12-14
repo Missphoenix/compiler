@@ -27,8 +27,6 @@ class PredictTableMaker:
 				for ans in rule.getAns():
 					self.__predicttable[root][ans] = rule_number
 
-
-
 	def __AnsProductor(self):
 		for tree in self.__treelist:
 			for rule in tree.getRoot().getRules():
