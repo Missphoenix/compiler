@@ -30,7 +30,7 @@ class PredictTableMaker:
 	def __AnsProductor(self):
 		for tree in self.__treelist:
 			for rule in tree.getRoot().getRules():
-				answers = rule.getFirsts()
+				answers = rule.getFirsts().copy()
 				for element in rule.getFollows():
 					if not element in answers:
 						answers.append(element)
