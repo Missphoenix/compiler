@@ -14,5 +14,12 @@ class ListandPointer:
 		return res
 
 	def getNode(self):
-		str = str(self.__strlist[self.__pointer])
-		return str
+		res = str(self.__strlist[self.__pointer])
+		return res
+
+	def getLength(self):
+		length = len(self.__strlist)
+		return length
+
+	def PrintList(self):
+		print(self.__strlist)

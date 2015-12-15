@@ -8,4 +8,7 @@ class CFGPredictor:
 		derivesMaker = CFGDerivesMaker(CFGTreeList , NonTerminalList , TerminalList)
 		firstsMaker = CFGFirstsMaker(CFGTreeList)
 		followMaker = CFGFollowMaker(CFGTreeList)
-		tableMaker = PredictTableMaker(CFGTreeList, NonTerminalList, TerminalList)
+		self.__tableMaker = PredictTableMaker(CFGTreeList, NonTerminalList, TerminalList)
+
+	def PrintTable(self):
+		self.__tableMaker.PrintTable()

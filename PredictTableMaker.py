@@ -4,12 +4,12 @@ from Node import simpleNode
 class PredictTableMaker:
 	def __init__(self, CFGTree, NonTerminalList, TerminalList):
 		self.__treelist = CFGTree
-		self.__nonterminallist = NonTerminalList
-		self.__terminallist = TerminalList
+		self.__nonterminallist = NonTerminalList.copy()
+		self.__terminallist = TerminalList.copy()
 		self.__predicttable = {}
 		self.__AnsProductor()
 		self.__TableEstablish()
-		self.PrintTable()
+		#self.PrintTable()
 
 	def __TableInitialize(self):
 		for nonterminal in self.__nonterminallist:
