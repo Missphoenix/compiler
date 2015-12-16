@@ -8,7 +8,7 @@ class InputTokens:
 		self.__CutTokens()
 
 	def __CutTokens(self):
-		if self.__input.isalpha():
+		if not self.__HaveSpace():
 			for char in self.__input:
 				self.__tokens.AddNode(char)
 		else:
@@ -26,3 +26,13 @@ class InputTokens:
 
 	def PrintTokens(self):
 		self.__tokens.PrintList()
+
+	def getTokenList(self):
+		res = self.__tokens
+		return res
+
+	def __HaveSpace(self):
+		for char in self.__input:
+			if char.isspace():
+				return True
+		return False

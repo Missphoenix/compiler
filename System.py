@@ -3,6 +3,7 @@ from CFGProcessor import *
 from CFGScanner import *
 from CFGPredictor import *
 from InputTokens import InputTokens
+from StringChecker import *
 
 class System:
 	def __init__(self):
@@ -11,7 +12,8 @@ class System:
 		self.__processor = None
 		self.__predictor = None
 		self.__input = None
-
+		self.__checker = None
+		self.__SetCheck = False
 	
 	def show(self):
 		article = "======================================\nWelcome to Top-down parser\nHere is your option:\n\t1.Store CFG file\n\t2.Put String\n\t3.Quit\n======================================"
@@ -32,18 +34,23 @@ class System:
 			self.__predictor = CFGPredictor(treelist , nonterlist , terlist)
 			for tree in treelist:
 				tree.PrintTree()
-			self.__predictor.PrintTable()
 			# end
+			self.__predictor.PrintTable()
+			self.__SetCheck = True
 			return choice , True
 		elif choice == '2':
 			# init the CFG processor
+			if self.__SetCheck == False:
+				print("You didn't set the CFG")
+				return choice , False
 			userstr = input("Your String: ")
 			terlist = self.__processor.getTerminalList()
 			self.__input = InputTokens(userstr, terlist)
 			if not self.__input.TokensCheck():
 				print("There is an invalid tokens in input string")
 				return choice, False
-			self.__input.PrintTokens()
+			self.__input.getTokenList().ResetPointer()
+			self.__checker = StringChecker(self.__input.getTokenList() , self.__scanner.GetRuleTree() , self.__processor.getTerminalList() , self.__scanner.GetNonTerminal() , self.__predictor.getPredictTable())
 			return choice , True
 		elif choice == '3':
 			# quit

@@ -44,7 +44,6 @@ class CFGFollowMaker:
 				FollowMemory.AddFindFollow(follow)
 		for follow in FollowMemory.getFindFollows():
 			FollowMemory.getRuleNode().AddFollow(follow)
-			print(FollowMemory.getRuleNode().getFollows())
 	
 	def __CheckFollow(self , FollowList , FollowMemory):
 		lastList = FollowList.getCheckStrs()
@@ -52,9 +51,7 @@ class CFGFollowMaker:
 		for lastFollow in lastList:
 			#print(lastFollow , end = ", ")
 			if len(lastFollow) == 0:
-				if FollowMemory.getRoot() == FollowList.getRuleRoot():
-					print("recall")
-				else:
+				if FollowMemory.getRoot() != FollowList.getRuleRoot():
 					# to see it's recall
 					for tree in self.__treeList:
 						NewFunctionList = _FollowList()

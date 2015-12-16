@@ -9,6 +9,9 @@ class ListandPointer:
 	def setPointer(self, pointer):
 		self.__pointer = int(pointer)
 
+	def IterablePointer(self):
+		self.__pointer = self.__pointer + 1
+
 	def getPointer(self):
 		res = self.__pointer
 		return res
@@ -16,6 +19,9 @@ class ListandPointer:
 	def getNode(self):
 		res = str(self.__strlist[self.__pointer])
 		return res
+
+	def ResetPointer(self):
+		self.__pointer = 0 
 
 	def getLength(self):
 		length = len(self.__strlist)

@@ -36,6 +36,10 @@ class PredictTableMaker:
 						answers.append(element)
 				rule.setAns(answers)
 
+	def getPredictTable(self):
+		res = self.__predicttable
+		return res
+
 	def PrintTable(self):
 		print("Predict Table:")
 		for nonterminal in self.__nonterminallist:
