@@ -16,7 +16,7 @@ class System:
 		self.__SetCheck = False
 	
 	def show(self):
-		article = "======================================\nWelcome to Top-down parser\nHere is your option:\n\t1.Store CFG file\n\t2.Put String\n\t3.Quit\n======================================"
+		article = "======================================\nWelcome to Top-down parser\nHere is your option:\n\t1.Store CFG file\n\t2.Put string\n\t3.Print tree\n\t4.Print predict table\n\t5.Quit\n======================================"
 		print(article)
 
 	def Check(self):
@@ -32,12 +32,8 @@ class System:
 			self.__processor = CFGProcessor(treelist , nonterlist)
 			terlist = self.__processor.getTerminalList()
 			self.__predictor = CFGPredictor(treelist , nonterlist , terlist)
-			'''
-			for tree in treelist:
-				tree.print_tree()
-			'''
+			
 			# end
-			self.__predictor.PrintTable()
 			self.__SetCheck = True
 			return choice , True
 		elif choice == '2':
@@ -49,12 +45,21 @@ class System:
 			terlist = self.__processor.getTerminalList()
 			self.__input = InputTokens(userstr, terlist)
 			if not self.__input.TokensCheck():
-				print("There is an invalid tokens in input string")
 				return choice, False
 			self.__input.getTokenList().ResetPointer()
 			self.__checker = StringChecker(self.__input.getTokenList() , self.__scanner.GetRuleTree() , self.__processor.getTerminalList() , self.__scanner.GetNonTerminal() , self.__predictor.getPredictTable())
 			return choice , True
 		elif choice == '3':
+			# print tree
+			treelist = self.__scanner.GetRuleTree()
+			for tree in treelist:
+				tree.print_tree()
+			return choice , True
+		elif choice == '4':
+			# print table
+			self.__predictor.PrintTable()
+			return choice , True
+		elif choice == '5':
 			# quit
 			return choice , True
 		else:

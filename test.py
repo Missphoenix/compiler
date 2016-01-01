@@ -7,5 +7,5 @@ while quit:
 	s.show()
 	answer , correct = s.Check()
 	if correct == True:
-		if answer == '3':
+		if answer == '5':
 			quit = False

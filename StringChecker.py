@@ -1,53 +1,63 @@
 class StringChecker:
-	def __init__(self , userstr , treelist , terlist , nonterlist , table):
-		self.__userstr = userstr
-		self.__treelist = treelist
-		self.__terlist = terlist
-		self.__nonterlist = nonterlist
-		self.__prediectTable = table
-		self.__ParseStack = []
-		self.__Successful = True
+	def __init__(self ,user_str ,tree_list ,ter_list ,nonter_list ,table):
+		self.__user_str = user_str
+		self.__tree_list = tree_list
+		self.__ter_list = ter_list
+		self.__nonter_list = nonter_list
+		self.__prediect_table = table
+		self.__parse_stack = []
+		self.__successful = True
 		self.__CheckAccept()
 
 	def __CheckAccept(self):
-		self.__ParseStack.append(self.__nonterlist[0])
-		while self.__Successful == True and len(self.__ParseStack) > 0:
-			if self.__ParseStack[len(self.__ParseStack)-1] in self.__nonterlist:
-				self.__AppendStringToParseStack(self.__ParseStack[len(self.__ParseStack)-1] , self.__userstr.getNode() )
-			if self.__ParseStack[len(self.__ParseStack)-1] in self.__terlist:
-				self.__CheckString()
-		if self.__Successful == True:
+		self.__parse_stack.append(self.__nonter_list[0])
+		while self.__successful == True and len(self.__parse_stack) > 0:
+			if self.__parse_stack[len(self.__parse_stack)-1] in self.__nonter_list:
+				self.__append_rule_to_parse_stack(self.__parse_stack[len(self.__parse_stack)-1] , self.__user_str.getNode() )
+			if self.__parse_stack[len(self.__parse_stack)-1] in self.__ter_list:
+				self.__check_string()
+		if self.__successful == True:
 			print("Accept")
 
-		
-	def __CheckString(self):
-		if self.__ParseStack[len(self.__ParseStack)-1] == self.__userstr.getNode():
-			self.__ParseStack.pop(len(self.__ParseStack)-1)
-			self.__userstr.IterablePointer()
+	def __check_string(self):
+		if self.__parse_stack[len(self.__parse_stack)-1] == self.__user_str.getNode():
+			self.__parse_stack.pop(len(self.__parse_stack)-1)
+			self.__user_str.IterablePointer()
 		else:
 			print("Error")
-			self.__Successful = False
+			self.__successful = False
 
-	def __AppendStringToParseStack(self , parsechar , userchar):
-		predictAnswer = self.__prediectTable[parsechar][userchar]
-		predictlist = []
-		Found = False
-		for tree in self.__treelist:
-			if Found == False:
+	def __append_rule_to_parse_stack(self , parsechar , userchar):
+		predict_rule = self.__prediect_table[parsechar][userchar]
+		predict_list = []
+		if predict_rule == -1:
+			print("Error")
+			self.__successful = False
+			return
+		else:
+			rule = self.__find_rule(predict_rule)
+			for simple in rule.get_simple():
+				if self.__is_lambda(simple.get_simple_value()) == False:
+					predict_list.append(simple.get_simple_value())
+			predict_list.reverse()
+			self.__parse_stack.pop(len(self.__parse_stack)-1)
+			self.__parse_stack = self.__parse_stack + predict_list
+			print("Apply:" , end=" ")
+			print(predict_rule)
+
+	def __find_rule(self, rule_num):
+		found = False
+		return_rule = None
+		for tree in self.__tree_list:
+			if found == False:
 				for rule in tree.get_root().get_rules():
-					if rule.get_rule_number() == predictAnswer:
-						for simple in rule.get_simple():
-							if self.__isLambda(simple.get_simple_value()) == False:
-								predictlist.append(simple.get_simple_value())
-						Found = True
+					if rule.get_rule_number() == rule_num:
+						return_rule = rule
+						found = True
 						break
-		predictlist.reverse()
-		self.__ParseStack.pop(len(self.__ParseStack)-1)
-		self.__ParseStack = self.__ParseStack + predictlist
-		print("Apply:" , end=" ")
-		print(predictAnswer)
+		return return_rule
 
-	def __isLambda(self, str):
+	def __is_lambda(self, str):
 		if str == "λ":
 			return True
 		else:
