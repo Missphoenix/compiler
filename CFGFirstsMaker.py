@@ -8,9 +8,9 @@ class CFGFirstsMaker:
 
 	def __BuildFirsts(self):
 		for tree in self.__treelist:
-			for rule in tree.getRoot().getRules():
-				simple_list = [simple.getSimpleVal() for simple in rule.getSimples()]
-				rule.setFirsts(self.__FindFirsts(simple_list))
+			for rule in tree.get_root().get_rules():
+				simple_list = [simple.get_simple_value() for simple in rule.get_simple()]
+				rule.set_firsts(self.__FindFirsts(simple_list))
 
 	def __FindFirsts(self, simple_list):
 		waiting_list = simple_list
@@ -30,9 +30,9 @@ class CFGFirstsMaker:
 				first_list.append(waiting_list[0])
 		else:
 			for tree in self.__treelist:
-				if tree.getRoot().getRootVal() == waiting_list[0]:
-					for rule in tree.getRoot().getRules():
-						derives_list = [simple.getSimpleVal() for simple in rule.getSimples()]
+				if tree.get_root().get_root_value() == waiting_list[0]:
+					for rule in tree.get_root().get_rules():
+						derives_list = [simple.get_simple_value() for simple in rule.get_simple()]
 						derives_list.extend(waiting_list[1:len(waiting_list)])
 						for element in self.__FindFirsts(derives_list):
 							if element in first_list:

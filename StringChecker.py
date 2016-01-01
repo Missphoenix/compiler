@@ -34,11 +34,11 @@ class StringChecker:
 		Found = False
 		for tree in self.__treelist:
 			if Found == False:
-				for rule in tree.getRoot().getRules():
-					if rule.getRuleNumber() == predictAnswer:
-						for simple in rule.getSimples():
-							if self.__isLambda(simple.getSimpleVal()) == False:
-								predictlist.append(simple.getSimpleVal())
+				for rule in tree.get_root().get_rules():
+					if rule.get_rule_number() == predictAnswer:
+						for simple in rule.get_simple():
+							if self.__isLambda(simple.get_simple_value()) == False:
+								predictlist.append(simple.get_simple_value())
 						Found = True
 						break
 		predictlist.reverse()

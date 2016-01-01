@@ -4,12 +4,12 @@ class CFGTree:
 	def __init__(self , root):
 		self.__root = rootNode(root)
 
-	def SetRule(self, rule, number):
-		self.__root.AddRule(rule, number)
+	def set_rule(self, rule, number):
+		self.__root.add_rule(rule, number)
 
-	def getRoot(self):
+	def get_root(self):
 		root = self.__root
 		return root
 
-	def PrintTree(self):
-		self.__root.PrintRoot()
+	def print_tree(self):
+		self.__root.print_root()

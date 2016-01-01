@@ -21,20 +21,20 @@ class PredictTableMaker:
 	def __TableEstablish(self):
 		self.__TableInitialize()
 		for tree in self.__treelist:
-			root = tree.getRoot().getRootVal()
-			for rule in tree.getRoot().getRules():
-				rule_number = rule.getRuleNumber()
-				for ans in rule.getAns():
+			root = tree.get_root().get_root_value()
+			for rule in tree.get_root().get_rules():
+				rule_number = rule.get_rule_number()
+				for ans in rule.get_answer():
 					self.__predicttable[root][ans] = rule_number
 
 	def __AnsProductor(self):
 		for tree in self.__treelist:
-			for rule in tree.getRoot().getRules():
-				answers = rule.getFirsts().copy()
-				for element in rule.getFollows():
+			for rule in tree.get_root().get_rules():
+				answers = rule.get_first().copy()
+				for element in rule.get_follow():
 					if not element in answers:
 						answers.append(element)
-				rule.setAns(answers)
+				rule.set_answer(answers)
 
 	def getPredictTable(self):
 		res = self.__predicttable

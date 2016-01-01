@@ -12,24 +12,24 @@ class CFGDerivesMaker:
 		# debug part
 	def __PrintDerives(self):
 		for tree in self.__treeList:
-			for rule in tree.getRoot().getRules():
-				print(rule.getRuleVal()+"\n")
-				print("Derives:  "+str(rule.getDerives())+"\n")
+			for rule in tree.get_root().get_rules():
+				print(rule.get_rule_value()+"\n")
+				print("Derives:  "+str(rule.is_derive_lambda())+"\n")
 
 		# code part
 	def __FindRuleDerives(self):
 		for tree in self.__treeList:
-			for rule in tree.getRoot().getRules():
-				if rule.getDerives() == None:
+			for rule in tree.get_root().get_rules():
+				if rule.is_derive_lambda() == None:
 					ruleAns = True
-					for simple in rule.getSimples():
-						if self.__traceDerives(simple.getSimpleVal()) == False:
+					for simple in rule.get_simple():
+						if self.__traceDerives(simple.get_simple_value()) == False:
 							ruleAns = False
 							break
 					if ruleAns == False:
-						rule.setDerives(False)
+						rule.set_derive_lambda(False)
 					else:
-						rule.setDerives(True)
+						rule.set_derive_lambda(True)
 
 	def __traceDerives(self , derivesstr):
 		if derivesstr == "λ":
@@ -43,22 +43,22 @@ class CFGDerivesMaker:
 			for nonterminal in self.__NonTerminalList:
 				if nonterminal == derivesstr:
 					for tree in self.__treeList:
-						if tree.getRoot().getRootVal() == derivesstr:
-							for rule in tree.getRoot().getRules():
+						if tree.get_root().get_root_value() == derivesstr:
+							for rule in tree.get_root().get_rules():
 								ruleAns = False
-								if rule.getDerives() == None:
+								if rule.is_derive_lambda() == None:
 									simpleAns = True
-									for simple in rule.getSimples():
-										if self.__traceDerives(simple.getSimpleVal()) == False:
+									for simple in rule.get_simple():
+										if self.__traceDerives(simple.get_simple_value()) == False:
 											simpleAns = False
 											break
 									if simpleAns == False:
-										rule.setDerives(False)
+										rule.set_derive_lambda(False)
 									else:
-										rule.setDerives(True)
+										rule.set_derive_lambda(True)
 									if simpleAns == True:
 										ruleAns = True	
-								elif rule.getDerives() == True:
+								elif rule.is_derive_lambda() == True:
 									ruleAns = True
 								else:
 									print("There have a bug in rulenode derives")

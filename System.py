@@ -32,8 +32,10 @@ class System:
 			self.__processor = CFGProcessor(treelist , nonterlist)
 			terlist = self.__processor.getTerminalList()
 			self.__predictor = CFGPredictor(treelist , nonterlist , terlist)
+			'''
 			for tree in treelist:
-				tree.PrintTree()
+				tree.print_tree()
+			'''
 			# end
 			self.__predictor.PrintTable()
 			self.__SetCheck = True
@@ -56,5 +58,5 @@ class System:
 			# quit
 			return choice , True
 		else:
-			print("We don't have this shit")
+			print("We don't have this option")
 			return choice , False

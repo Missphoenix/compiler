@@ -39,17 +39,17 @@ class CFGScanner:
 					self.__rule_tree.append(tree)
 				root = content_split[1]
 				tree = CFGTree(root)
-				tree.SetRule(right_rule, content_split[0])
+				tree.set_rule(right_rule, content_split[0])
 			else:
-				tree.SetRule(right_rule, content_split[0])
+				tree.set_rule(right_rule, content_split[0])
 		self.__rule_tree.append(tree)
 
 	def __BuildTreeSimple(self):
 		for tree in self.__rule_tree:
-			for rule in tree.getRoot().getRules():
-				rule_list = rule.getRuleVal().split(" ")
+			for rule in tree.get_root().get_rules():
+				rule_list = rule.get_rule_value().split(" ")
 				for simple in rule_list:
-					rule.AddSimple(simple)
+					rule.add_simple(simple)
 
 	def __GetRightpart(self, rule):
 		rule = rule.replace("|", ">")
@@ -80,4 +80,4 @@ class CFGScanner:
 
 	def PrintRuleTree(self):
 		for element in self.__rule_tree:
-			element.PrintTree()
+			element.print_tree()

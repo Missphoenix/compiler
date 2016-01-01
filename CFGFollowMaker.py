@@ -8,9 +8,9 @@ class CFGFollowMaker:
 
 	def __FindRuleFollow(self):
 		for tree in self.__treeList:
-			for rule in tree.getRoot().getRules():
-				if rule.getDerives() == True:
-					self.__FindRuleStart(tree.getRoot().getRootVal() , rule)
+			for rule in tree.get_root().get_rules():
+				if rule.is_derive_lambda() == True:
+					self.__FindRuleStart(tree.get_root().get_root_value() , rule)
 
 
 	def __FindRuleStart(self , followRoot , RuleNode):
@@ -18,18 +18,18 @@ class CFGFollowMaker:
 		FindFollow.setRuleNode(RuleNode)
 		FindFollow.setRoot(followRoot)
 		for tree in self.__treeList:
-			for rule in tree.getRoot().getRules():
+			for rule in tree.get_root().get_rules():
 				FindRuleStart = False
 				FindList = _FollowList()
 				strlist = []
-				for simple in rule.getSimples():
+				for simple in rule.get_simple():
 					if FindRuleStart == False:
-						if simple.getSimpleVal() == followRoot:
+						if simple.get_simple_value() == followRoot:
 							FindRuleStart = True
-							FindList.setRuleRoot(tree.getRoot().getRootVal())
+							FindList.setRuleRoot(tree.get_root().get_root_value())
 					else:
-						if self.__isLambda(simple.getSimpleVal()) == False:
-							strlist.append(simple.getSimpleVal())
+						if self.__isLambda(simple.get_simple_value()) == False:
+							strlist.append(simple.get_simple_value())
 				if FindRuleStart == True:
 					FindList.AddCheckStr(strlist)
 					FindFollow.AddFollowList(FindList)
@@ -43,7 +43,7 @@ class CFGFollowMaker:
 			for follow in followlist.getFindFollows():
 				FollowMemory.AddFindFollow(follow)
 		for follow in FollowMemory.getFindFollows():
-			FollowMemory.getRuleNode().AddFollow(follow)
+			FollowMemory.getRuleNode().add_follow(follow)
 	
 	def __CheckFollow(self , FollowList , FollowMemory):
 		lastList = FollowList.getCheckStrs()
@@ -51,23 +51,23 @@ class CFGFollowMaker:
 		for lastFollow in lastList:
 			#print(lastFollow , end = ", ")
 			if len(lastFollow) == 0:
-				if FollowMemory.getRoot() != FollowList.getRuleRoot():
+				if FollowMemory.get_root() != FollowList.getRuleRoot():
 					# to see it's recall
 					for tree in self.__treeList:
 						NewFunctionList = _FollowList()
 						FindNewFunction = False
-						for rule in tree.getRoot().getRules():
+						for rule in tree.get_root().get_rules():
 							FindRuleStart = False
 							strlist = []
-							for simple in rule.getSimples():
+							for simple in rule.get_simple():
 								if FindRuleStart == False:
-									if simple.getSimpleVal() == FollowList.getRuleRoot():
+									if simple.get_simple_value() == FollowList.getRuleRoot():
 										FindRuleStart = True
 										FindNewFunction = True
-										NewFunctionList.setRuleRoot(tree.getRoot().getRootVal())
+										NewFunctionList.setRuleRoot(tree.get_root().get_root_value())
 								else:
-									if self.__isLambda(simple.getSimpleVal()) == False:
-										strlist.append(simple.getSimpleVal())
+									if self.__isLambda(simple.get_simple_value()) == False:
+										strlist.append(simple.get_simple_value())
 							if FindRuleStart == True:
 								if len(strlist) > 0:
 									NewFunctionList.AddCheckStr(strlist)
@@ -80,15 +80,15 @@ class CFGFollowMaker:
 					FollowList.AddFindFollow(firstfollowstr)
 				else:
 					Recursive = False
-					if firstfollowstr == FollowMemory.getRoot():
+					if firstfollowstr == FollowMemory.get_root():
 						Recursive = True
 					for tree in self.__treeList:
-						if firstfollowstr == tree.getRoot().getRootVal():
-							for rule in tree.getRoot().getRules():
+						if firstfollowstr == tree.get_root().get_root_value():
+							for rule in tree.get_root().get_rules():
 								newstr = []
-								for simple in rule.getSimples():
-									if self.__isLambda(simple.getSimpleVal()) == False:
-										newstr.append(simple.getSimpleVal())
+								for simple in rule.get_simple():
+									if self.__isLambda(simple.get_simple_value()) == False:
+										newstr.append(simple.get_simple_value())
 								newstr = self.__copyFollowstr(newstr , lastFollow)
 								if Recursive != True or len(newstr) > 0:
 									newList.append(newstr)
@@ -144,7 +144,7 @@ class _FollowMemory:
 		res = self.__RuleNode
 		return res
 
-	def getRoot(self):
+	def get_root(self):
 		res1 = self.__FollowRoot
 		return res1
 

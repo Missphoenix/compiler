@@ -17,30 +17,30 @@ class CFGProcessor:
 
 	def __SimpleSpecific(self):
 		for tree in self.__treelist:
-			for rule in tree.getRoot().getRules():
+			for rule in tree.get_root().get_rules():
 				simplelist = []
-				for simple in rule.getSimples():
-					if self.__CheckLambda(simple.getSimpleVal()) == False:
-						if self.__CheckTerminalAll(simple.getSimpleVal()) == False:
-							nodelist = self.__CheckTerminal(simple.getSimpleVal() , self.__memory)
+				for simple in rule.get_simple():
+					if self.__CheckLambda(simple.get_simple_value()) == False:
+						if self.__CheckTerminalAll(simple.get_simple_value()) == False:
+							nodelist = self.__CheckTerminal(simple.get_simple_value() , self.__memory)
 							simplelist.extend(nodelist)
 							self.__memory.resetData()
 						else:
-							simplelist.append(simple.getSimpleVal())
+							simplelist.append(simple.get_simple_value())
 					else:
 						simplelist.append("λ")
-				rule.ResetSimples()
+				rule.reset_simples()
 				for simple in simplelist:
-					rule.AddSimple(simple)
-			#tree.PrintTree()
+					rule.add_simple(simple)
+			#tree.print_tree()
 
 
 	def __buildTerminalList(self):
 		EndExist = False
 		for tree in self.__treelist:
-			for rule in tree.getRoot().getRules():
-				for simple in rule.getSimples():
-					simplestr = simple.getSimpleVal()
+			for rule in tree.get_root().get_rules():
+				for simple in rule.get_simple():
+					simplestr = simple.get_simple_value()
 					if simplestr != "λ":
 						if not simplestr[0].isupper():
 							if simplestr == "$":

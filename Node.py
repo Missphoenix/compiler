@@ -3,22 +3,22 @@ class rootNode:
 		self.__rootVal = root
 		self.__rules = []
 
-	def AddRule(self, rule, number):
+	def add_rule(self, rule, number):
 		rulenode = ruleNode(rule , len(self.__rules)+1, number)
 		self.__rules.append(rulenode)
 
-	def getRules(self):
+	def get_rules(self):
 		rules = self.__rules
 		return rules
 
-	def getRootVal(self):
+	def get_root_value(self):
 		res = self.__rootVal
 		return res
 
-	def PrintRoot(self):
+	def print_root(self):
 		print("Root: %s"% (self.__rootVal))
 		for element in self.__rules:
-			element.PrintRule()
+			element.print_rule()
 		print()
 
 
@@ -33,63 +33,57 @@ class ruleNode:
 		self.__follows = []
 		self.__ans = []
 
-	def AddSimple(self, simple):
+	def add_simple(self, simple):
 		simplenode = simpleNode(simple , len(self.__simples)+1)
 		self.__simples.append(simplenode)
 
-	def AddFirst(self, first):
-		self.__firsts.append(first)
-
-	def AddFollow(self, follow):
+	def add_follow(self, follow):
 		self.__follows.append(follow)
 
-	def ResetSimples(self):
+	def reset_simples(self):
 		self.__simples.clear()
 
-	def setDerives(self , derives):
+	def set_derive_lambda(self , derives):
 		self.__Derives = derives
 
-	def setFirsts(self, firsts):
+	def set_firsts(self, firsts):
 		self.__firsts = firsts
 
-	def setFollows(self, follows):
-		self.__follows = follows
-
-	def setAns(self, list):
+	def set_answer(self, list):
 		self.__ans = list
 
-	def getRuleVal(self):
+	def get_rule_value(self):
 		res = self.__ruleVal
 		return res
 
-	def getSimples(self):
+	def get_simple(self):
 		simples = self.__simples
 		return simples
 
-	def getDerives(self):
+	def is_derive_lambda(self):
 		derives = self.__Derives
 		return derives
 
-	def getFirsts(self):
+	def get_first(self):
 		firsts = self.__firsts
 		return firsts
 
-	def getFollows(self):
+	def get_follow(self):
 		follows = self.__follows
 		return follows
 
-	def getRuleNumber(self):
+	def get_rule_number(self):
 		ruleNumber = self.__ruleNumber
 		return ruleNumber
 
-	def getAns(self):
+	def get_answer(self):
 		ans = self.__ans
 		return ans
 
-	def PrintRule(self):
+	def print_rule(self):
 		print(" Rule number %d: %s; derive λ: %s; first: %s; follow: %s; ans: %s;"% (self.__ruleNumber, self.__ruleVal, self.__Derives, self.__firsts, self.__follows, self.__ans))
 		for node in self.__simples:
-			node.PrintSimple()
+			node.print_simple()
 		print()
 
 class simpleNode:
@@ -97,9 +91,9 @@ class simpleNode:
 		self.__simpleVal = simple
 		self.__simpleIndex = index
 
-	def getSimpleVal(self):
+	def get_simple_value(self):
 		res = self.__simpleVal
 		return res
 
-	def PrintSimple(self):
+	def print_simple(self):
 		print("  Simple index %d: %s"% (self.__simpleIndex, self.__simpleVal), end =" ")
