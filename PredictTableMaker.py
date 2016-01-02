@@ -7,19 +7,19 @@ class PredictTableMaker:
 		self.__nonterminallist = NonTerminalList.copy()
 		self.__terminallist = TerminalList.copy()
 		self.__predicttable = {}
-		self.__AnsProductor()
-		self.__TableEstablish()
-		#self.PrintTable()
+		self.__answer_productor()
+		self.__table_establish()
+		#self.print_table()
 
-	def __TableInitialize(self):
+	def __table_initialize(self):
 		for nonterminal in self.__nonterminallist:
 			innertable = {}
 			for terminal in self.__terminallist:
 				innertable[terminal] = -1
 			self.__predicttable[nonterminal] = innertable
 
-	def __TableEstablish(self):
-		self.__TableInitialize()
+	def __table_establish(self):
+		self.__table_initialize()
 		for tree in self.__treelist:
 			root = tree.get_root().get_root_value()
 			for rule in tree.get_root().get_rules():
@@ -27,7 +27,7 @@ class PredictTableMaker:
 				for ans in rule.get_answer():
 					self.__predicttable[root][ans] = rule_number
 
-	def __AnsProductor(self):
+	def __answer_productor(self):
 		for tree in self.__treelist:
 			for rule in tree.get_root().get_rules():
 				answers = rule.get_first().copy()
@@ -36,11 +36,11 @@ class PredictTableMaker:
 						answers.append(element)
 				rule.set_answer(answers)
 
-	def getPredictTable(self):
+	def get_predict_table(self):
 		res = self.__predicttable
 		return res
 
-	def PrintTable(self):
+	def print_table(self):
 		print("Predict Table:")
 		for nonterminal in self.__nonterminallist:
 			print("{%s: "% nonterminal, end = " ")

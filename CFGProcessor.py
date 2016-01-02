@@ -2,29 +2,29 @@ from CFGTree import CFGTree
 from Node import simpleNode
 
 class CFGProcessor:
-	def __init__(self , CFGtreeList , NonterminalList):
-		self.__treelist = CFGtreeList
-		self.__nonterminallist = NonterminalList
+	def __init__(self, CFG_tree_list, non_terminal_list):
+		self.__treelist = CFG_tree_list
+		self.__nonterminallist = non_terminal_list
 		self.__terminallist = []
 		self.__memory = _Memory()
-		self.__SimpleSpecific()
-		self.__buildTerminalList()
-		#print(self.getTerminalList())
+		self.__simple_specific()
+		self.__build_terminal_list()
+		#print(self.get_terminal_list())
 
-	def getTerminalList(self):
+	def get_terminal_list(self):
 		terminallist = self.__terminallist
 		return terminallist
 
-	def __SimpleSpecific(self):
+	def __simple_specific(self):
 		for tree in self.__treelist:
 			for rule in tree.get_root().get_rules():
 				simplelist = []
 				for simple in rule.get_simple():
-					if self.__CheckLambda(simple.get_simple_value()) == False:
-						if self.__CheckTerminalAll(simple.get_simple_value()) == False:
-							nodelist = self.__CheckTerminal(simple.get_simple_value() , self.__memory)
+					if self.__is_lambda(simple.get_simple_value()) == False:
+						if self.__check_terminal_all(simple.get_simple_value()) == False:
+							nodelist = self.__check_terminal(simple.get_simple_value() , self.__memory)
 							simplelist.extend(nodelist)
-							self.__memory.resetData()
+							self.__memory.reset_data()
 						else:
 							simplelist.append(simple.get_simple_value())
 					else:
@@ -35,7 +35,7 @@ class CFGProcessor:
 			#tree.print_tree()
 
 
-	def __buildTerminalList(self):
+	def __build_terminal_list(self):
 		EndExist = False
 		for tree in self.__treelist:
 			for rule in tree.get_root().get_rules():
@@ -52,38 +52,38 @@ class CFGProcessor:
 			self.__terminallist.append("$")
 
 
-	def __CheckTerminalAll(self , simplestr):
-		return self.__CheckNonTerminal(simplestr)
+	def __check_terminal_all(self, simplestr):
+		return self.__check_non_terminal(simplestr)
 
-	def __CheckTerminal(self , simplestr , memory):
+	def __check_terminal(self, simplestr, memory):
 		nodelist = []
-		terminal , oldstr , index = memory.getData()
+		terminal , oldstr , index = memory.get_data()
 		if len(simplestr)-1 >= index:
 			if terminal is None:
 				nowstr = simplestr[index]
-				if self.__CheckNonTerminal(nowstr) == True:
-					memory.ChangeData(False , nowstr , index+1)
+				if self.__check_non_terminal(nowstr) == True:
+					memory.change_data(False , nowstr , index+1)
 				else:
-					memory.ChangeData(True , nowstr , index+1)
-				nodelist = nodelist + self.__CheckTerminal(simplestr , memory)
+					memory.change_data(True , nowstr , index+1)
+				nodelist = nodelist + self.__check_terminal(simplestr , memory)
 			elif terminal is False:
 				nowstr = simplestr[index]
 				nowstr = oldstr + nowstr
-				if self.__CheckNonTerminal(nowstr) == True:
-					memory.ChangeData(False , nowstr , index+1)
+				if self.__check_non_terminal(nowstr) == True:
+					memory.change_data(False , nowstr , index+1)
 				else:
-					memory.ChangeData(None , None , index)
+					memory.change_data(None , None , index)
 					nodelist.append(oldstr)
-				nodelist = nodelist + self.__CheckTerminal(simplestr , memory)
+				nodelist = nodelist + self.__check_terminal(simplestr , memory)
 			elif terminal is True:
 				nowstr = simplestr[index]
-				if self.__CheckNonTerminal(nowstr) == True:
-					memory.ChangeData(None , None , index)
+				if self.__check_non_terminal(nowstr) == True:
+					memory.change_data(None , None , index)
 					nodelist.append(oldstr)
 				else:
 					nowstr = oldstr + nowstr
-					memory.ChangeData(True , nowstr , index+1)
-				nodelist = nodelist + self.__CheckTerminal(simplestr , memory)
+					memory.change_data(True , nowstr , index+1)
+				nodelist = nodelist + self.__check_terminal(simplestr , memory)
 			else:
 				print("Error Check variable in memory")
 		else:
@@ -95,7 +95,7 @@ class CFGProcessor:
 				print("Error Check variable in memory")
 		return nodelist
 
-	def __CheckNonTerminal(self , checkstr):
+	def __check_non_terminal(self, checkstr):
 		for nonterminal in self.__nonterminallist:
 			index = 0 
 			for char in checkstr:  
@@ -108,27 +108,27 @@ class CFGProcessor:
 				return True
 		return False
 
-	def __CheckLambda(self , simplestr):
-		if simplestr == 'λ':
+	def __is_lambda(self , simplestr):
+		if simplestr == "λ":
 			return True
 		else:
 			return False
 
 class _Memory:
 	def __init__(self):
-		self.__IsTerminal = None
-		self.__Str = None
+		self.__is_termial = None
+		self.__string = None
 		self.__index = 0
 
-	def ChangeData(self , newterminal , newstr , newindex):
-		self.__IsTerminal = newterminal
-		self.__Str = newstr
+	def change_data(self, newterminal, newstr, newindex):
+		self.__is_termial = newterminal
+		self.__string = newstr
 		self.__index = newindex
 
-	def resetData(self):
-		self.__IsTerminal = None
-		self.__Str = None 
+	def reset_data(self):
+		self.__is_termial = None
+		self.__string = None 
 		self.__index = 0
 
-	def getData(self):
-		return self.__IsTerminal , self.__Str , self.__index
+	def get_data(self):
+		return self.__is_termial, self.__string, self.__index

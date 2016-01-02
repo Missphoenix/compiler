@@ -1,5 +1,5 @@
 class StringChecker:
-	def __init__(self ,user_str ,tree_list ,ter_list ,nonter_list ,table):
+	def __init__(self, user_str, tree_list, ter_list, nonter_list, table):
 		self.__user_str = user_str
 		self.__tree_list = tree_list
 		self.__ter_list = ter_list
@@ -7,30 +7,31 @@ class StringChecker:
 		self.__prediect_table = table
 		self.__parse_stack = []
 		self.__successful = True
-		self.__CheckAccept()
+		self.__accept_checker()
 
-	def __CheckAccept(self):
+	def __accept_checker(self):
 		self.__parse_stack.append(self.__nonter_list[0])
 		while self.__successful == True and len(self.__parse_stack) > 0:
 			if self.__parse_stack[len(self.__parse_stack)-1] in self.__nonter_list:
-				self.__append_rule_to_parse_stack(self.__parse_stack[len(self.__parse_stack)-1] , self.__user_str.getNode() )
+				self.__append_rule_to_parse_stack(self.__parse_stack[len(self.__parse_stack)-1] , self.__user_str.get_node() )
 			if self.__parse_stack[len(self.__parse_stack)-1] in self.__ter_list:
 				self.__check_string()
 		if self.__successful == True:
 			print("Accept")
 
 	def __check_string(self):
-		if self.__parse_stack[len(self.__parse_stack)-1] == self.__user_str.getNode():
+		if self.__parse_stack[len(self.__parse_stack)-1] == self.__user_str.get_node():
 			self.__parse_stack.pop(len(self.__parse_stack)-1)
-			self.__user_str.IterablePointer()
+			self.__user_str.next_pointer()
 		else:
 			print("Error")
 			self.__successful = False
 
-	def __append_rule_to_parse_stack(self , parsechar , userchar):
+	def __append_rule_to_parse_stack(self, parsechar, userchar):
 		predict_rule = self.__prediect_table[parsechar][userchar]
 		predict_list = []
 		if predict_rule == -1:
+			# if no rule in predict table
 			print("Error")
 			self.__successful = False
 			return

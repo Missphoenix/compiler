@@ -3,29 +3,25 @@ class ListandPointer:
 		self.__pointer = 0
 		self.__strlist = []
 
-	def AddNode(self, terminal):
+	def add_node(self, terminal):
 		self.__strlist.append(terminal)
 
-	def setPointer(self, pointer):
+	def set_pointer(self, pointer):
 		self.__pointer = int(pointer)
 
-	def IterablePointer(self):
+	def next_pointer(self):
 		self.__pointer = self.__pointer + 1
 
-	def getPointer(self):
-		res = self.__pointer
-		return res
-
-	def getNode(self):
+	def get_node(self):
 		res = str(self.__strlist[self.__pointer])
 		return res
 
-	def ResetPointer(self):
+	def reset_pointer(self):
 		self.__pointer = 0 
 
-	def getLength(self):
+	def length(self):
 		length = len(self.__strlist)
 		return length
 
-	def PrintList(self):
+	def print_list(self):
 		print(self.__strlist)

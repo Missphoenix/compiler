@@ -4,15 +4,15 @@ from CFGFollowMaker import CFGFollowMaker
 from PredictTableMaker import PredictTableMaker
 
 class CFGPredictor:
-	def __init__(self , CFGTreeList , NonTerminalList , TerminalList):
-		self.__derivesMaker = CFGDerivesMaker(CFGTreeList , NonTerminalList , TerminalList)
-		self.__firstsMaker = CFGFirstsMaker(CFGTreeList)
-		self.__followMaker = CFGFollowMaker(CFGTreeList)
-		self.__tableMaker = PredictTableMaker(CFGTreeList, NonTerminalList, TerminalList)
+	def __init__(self, CFG_tree_list, non_terminal_list, terminal_list):
+		self.__derive_maker = CFGDerivesMaker(CFG_tree_list , non_terminal_list , terminal_list)
+		self.__first_maker = CFGFirstsMaker(CFG_tree_list)
+		self.__follow_maker = CFGFollowMaker(CFG_tree_list)
+		self.__table_maker = PredictTableMaker(CFG_tree_list, non_terminal_list, terminal_list)
 
-	def PrintTable(self):
-		self.__tableMaker.PrintTable()
+	def print_table(self):
+		self.__table_maker.print_table()
 
-	def getPredictTable(self):
-		res = self.__tableMaker.getPredictTable()
+	def get_predict_table(self):
+		res = self.__table_maker.get_predict_table()
 		return res
