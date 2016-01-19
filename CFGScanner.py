@@ -46,16 +46,28 @@ class CFGScanner:
 
 	def __build_tree_simple(self):
 		for tree in self.__rule_tree:
-			for rule in tree.get_root().get_rules():
-				rule_list = rule.get_rule_value().split(" ")
-				for simple in rule_list:
-					rule.add_simple(simple)
+			if self.__is_nonterminal_char():
+				for rule in tree.get_root().get_rules():
+					rule_list = [char for char in rule.get_rule_value()]
+					for simple in rule_list:
+						rule.add_simple(simple)
+			else:
+				for rule in tree.get_root().get_rules():
+					rule_list = rule.get_rule_value().split(" ")
+					for simple in rule_list:
+						rule.add_simple(simple)
 
 	def __get_right_part(self, rule):
 		rule = rule.replace("|", ">")
 		pos = rule.find(">")
 		rrule = rule[pos+2:len(rule)]
 		return rrule
+
+	def __is_nonterminal_char(self):
+		for non_ter in self.__nonterminal:
+			if len(non_ter) != 1:
+				return False
+		return True
 	
 	#get variable part
 

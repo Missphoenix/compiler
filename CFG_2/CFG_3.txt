@@ -1,0 +1,5 @@
+1 S > A B c $
+2 B > b
+3 | lamda
+4 A > a
+5 | lamda
